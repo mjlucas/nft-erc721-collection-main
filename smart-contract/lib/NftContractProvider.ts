@@ -1,8 +1,8 @@
-// The name below ("Gaiaverse") should match the name of your Solidity contract.
+// The name below ("DegenandFrens") should match the name of your Solidity contract.
 // It can be updated using the following command:
 // yarn rename-contract NEW_CONTRACT_NAME
 // Please DO NOT change it manually!
-import { Gaiaverse as ContractType } from '../typechain/index';
+import { DegenandFrens as ContractType } from '../typechain/index';
 
 import { ethers } from 'hardhat';
 import CollectionConfig from './../config/CollectionConfig';
