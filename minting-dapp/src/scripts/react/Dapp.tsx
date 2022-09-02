@@ -9,6 +9,7 @@ import CollectionStatus from './CollectionStatus';
 import MintWidget from './MintWidget';
 import Whitelist from '../lib/Whitelist';
 import { toast } from 'react-toastify';
+import { CrossmintPayButton } from "@crossmint/client-sdk-react-ui";
 
 const ContractAbi = require('../../../../smart-contract/artifacts/contracts/' + CollectionConfig.contractName + '.sol/' + CollectionConfig.contractName + '.json').abi;
 
@@ -70,9 +71,7 @@ export default class Dapp extends React.Component<Props, State> {
         <>
           We were not able to detect <strong>MetaMask</strong>. We value <strong>privacy and security</strong> a lot so we limit the wallet options on the DAPP.<br />
           <br />
-          But don't worry! <span className="emoji">😃</span> You can always interact with the smart-contract through <a href={this.generateContractUrl()} target="_blank">{this.state.networkConfig.blockExplorer.name}</a> and <strong>we do our best to provide you with the best user experience possible</strong>, even from there.<br />
-          <br />
-          You can also get your <strong>Whitelist Proof</strong> manually, using the tool below.
+          But don't worry! <span className="emoji">😃</span> You can always mint and receive your NFT through our credit card option from the link below, without even having to connect your wallet! 
         </>,
       );
     }
@@ -191,6 +190,8 @@ export default class Dapp extends React.Component<Props, State> {
 
         {this.state.errorMessage ? <div className="error"><p>{this.state.errorMessage}</p><button onClick={() => this.setError()}>Close</button></div> : null}
 
+
+
         {this.isWalletConnected() ?
           <>
             {this.isContractReady() ?
@@ -239,27 +240,32 @@ export default class Dapp extends React.Component<Props, State> {
           </>
         :
           <div className="no-wallet">
+
+            
             {!this.isWalletConnected() ? <button className="primary" disabled={this.provider === undefined} onClick={() => this.connectWallet()}>Connect Wallet</button> : null}
 
+  
+
+
             <div className="use-block-explorer">
-              Hey, looking for a <strong>super-safe experience</strong>? <span className="emoji">😃</span><br />
-              You can interact with the smart-contract <strong>directly</strong> through <a href={this.generateContractUrl()} target="_blank">{this.state.networkConfig.blockExplorer.name}</a>, without even connecting your wallet to this DAPP! <span className="emoji">🚀</span><br />
-              <br />
-              Keep safe! <span className="emoji">❤️</span>
+
+
+<div><strong>OR</strong><br></br><br></br></div>
+
+            <CrossmintPayButton
+    collectionTitle="DEGEN AND FRENS"
+    collectionDescription="A collection of 5,555 NFTs powering the launch of an IRL Web3 Gallery and Cafe, bridging the gap between Web3 and IRL. Price in $USD"
+    collectionPhoto="https://openseauserdata.com/files/ae5cde3da01e36de030f1d0c703c8f78.png"
+    clientId="cf6e3d05-4638-448a-ba07-afffc0e0f534"
+    mintConfig={{"type":"erc-721","totalPrice":"0.03","_mintAmount":"1"}}
+            />
             </div>
+
+
 
             {!this.isWalletConnected() || this.state.isWhitelistMintEnabled ?
               <div className="merkle-proof-manual-address">
-                <h2>Whitelist Proof</h2>
-                <p>
-                  Anyone can generate the proof using any public address in the list, but <strong>only the owner of that address</strong> will be able to make a successful transaction by using it.
-                </p>
-
-                {this.state.merkleProofManualAddressFeedbackMessage ? <div className="feedback-message">{this.state.merkleProofManualAddressFeedbackMessage}</div> : null}
-
-                <label htmlFor="merkle-proof-manual-address">Public address:</label>
-                <input id="merkle-proof-manual-address" type="text" placeholder="0x000..." disabled={this.state.userAddress !== null} value={this.state.userAddress ?? this.state.merkleProofManualAddress} ref={(input) => this.merkleProofManualAddressInput = input!} onChange={() => {this.setState({merkleProofManualAddress: this.merkleProofManualAddressInput.value})}} /> <button onClick={() => this.copyMerkleProofToClipboard()}>Generate and copy to clipboard</button>
-              </div>
+                </div>
               : null}
           </div>
         }
@@ -389,3 +395,4 @@ export default class Dapp extends React.Component<Props, State> {
     });
   }
 }
+

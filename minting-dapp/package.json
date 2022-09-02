@@ -37,5 +37,9 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress"
+    },
+    "dependencies": {
+        "@crossmint/client-sdk-react-ui": "^0.1.8-alpha.0",
+        "@wert-io/widget-initializer": "^2.0.0"
     }
 }

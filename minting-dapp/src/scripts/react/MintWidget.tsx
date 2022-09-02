@@ -1,6 +1,7 @@
 import { utils, BigNumber } from 'ethers';
 import React from 'react';
 import NetworkConfigInterface from '../../../../smart-contract/lib/NetworkConfigInterface';
+import { CrossmintPayButton } from "@crossmint/client-sdk-react-ui";
 
 interface Props {
   networkConfig: NetworkConfigInterface;
@@ -80,7 +81,14 @@ export default class MintWidget extends React.Component<Props, State> {
               <button className="increase" disabled={this.props.loading} onClick={() => this.incrementMintAmount()}>+</button>
               <button className="primary" disabled={this.props.loading} onClick={() => this.mint()}>Mint</button>
             </div>
-          </div>
+            <CrossmintPayButton
+    collectionTitle="DEGEN AND FRENS"
+    collectionDescription="A collection of 5,555 NFTs powering the launch of an IRL Web3 Gallery and Cafe, bridging the gap between Web3 and IRL. Price in $USD"
+    collectionPhoto="https://openseauserdata.com/files/ae5cde3da01e36de030f1d0c703c8f78.png"
+    clientId="cf6e3d05-4638-448a-ba07-afffc0e0f534"
+    mintConfig={{"type":"erc-721","totalPrice":"0.03","_mintAmount":"1"}}
+            />
+</div>
           :
           <div className="cannot-mint">
             <span className="emoji">⏳</span>
@@ -88,6 +96,8 @@ export default class MintWidget extends React.Component<Props, State> {
             {this.props.isWhitelistMintEnabled ? <>You are not included in the <strong>whitelist</strong>.</> : <>The contract is <strong>paused</strong>.</>}<br />
             Please come back during the next sale!
           </div>
+
+          
         }
       </>
     );
